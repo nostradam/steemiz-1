@@ -19,12 +19,12 @@ function LeftSideBar(props) {
         <aside id="left_sidebar">
           <div>
             <LeftSideBarItem to="/" label="All post" icon={IconView} />
-            <LeftSideBarItem to={`/@${me}/feed`} label="Following Feed" icon={IconStar} />
-            <LeftSideBarItem to={`/@${me}/blog`} label="My Blog" icon={IconRss} />
+            {/*<LeftSideBarItem to={`/@${me}/feed`} label="Following Feed" icon={IconStar} />
+            <LeftSideBarItem to={`/@${me}/blog`} label="My Blog" icon={IconRss} />*/}
           </div>
           <div>
             <LeftSideBarItem to={`/@${me}`} label="Profile" icon={IconAccountCircle} exact={false} />
-            <LeftSideBarItem to="#" label="Settings" icon={IconSettings} />
+            {/*<LeftSideBarItem to="#" label="Settings" icon={IconSettings} />*/}
           </div>
         </aside>
       )}

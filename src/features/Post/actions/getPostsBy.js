@@ -105,15 +105,16 @@ function* getPostsBy({ category, query }) {
     const formattedPosts = posts.map(post => format(post));
 
     // LOOK FOR NULSCOMMUNITY TAG
-    const nulsPosts = [];
+    /*const nulsPosts = [];
     formattedPosts.forEach(post => {
+      if (!post.json_metadata.tags) return;
       const isNulsCommunity = post.json_metadata.tags.indexOf('nulscommunity');
       if (isNulsCommunity !== -1) {
         nulsPosts.push(post);
       }
-    });
+    });*/
 
-    yield put(getPostsBySuccess(category, tag, nulsPosts, statePosts));
+    yield put(getPostsBySuccess(category, tag, formattedPosts, statePosts));
   } catch(e) {
     yield put(getPostsByFailure(e.message));
   }

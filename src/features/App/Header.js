@@ -92,7 +92,7 @@ class Header extends Component {
         )}
         {me && (
           <div className={`header__collapse collapse ${collapseOpen ? 'in' : ''}`}>
-            <SelectField
+            {/*<SelectField
               style={{ fontSize: '.9rem' }}
               value={currentCategory}
               className="select_filter"
@@ -102,7 +102,7 @@ class Header extends Component {
               <MenuItem value="trending" key="trending" primaryText={<Link className="menu_link" to={`/trending${currentTag ? `/${currentTag}` : ''}`}>trending</Link>} />
               <MenuItem value="created" key="created" primaryText={<Link className="menu_link" to={`/created${currentTag ? `/${currentTag}` : ''}`}>new</Link>} />
               <MenuItem value="hot" key="hot" primaryText={<Link className="menu_link" to={`/hot${currentTag ? `/${currentTag}` : ''}`}>hot</Link>} />
-              {/*<MenuItem value="promoted" key="promoted" primaryText={<Link className="menu_link" to="/promoted">promoted</Link>} />*/}
+              <MenuItem value="promoted" key="promoted" primaryText={<Link className="menu_link" to="/promoted">promoted</Link>} />
             </SelectField>
             <SelectField
               style={{ fontSize: '.9rem' }}
@@ -122,7 +122,7 @@ class Header extends Component {
             >
               <MenuItem value="EN" key={1} primaryText="EN" />
               <MenuItem value="FR" key={2} primaryText="FR" />
-            </SelectField>
+            </SelectField>*/}
             <PostCreate />
             <button className="header__group__username"
                     onTouchTap={this.handleShowDropdownMenu}>

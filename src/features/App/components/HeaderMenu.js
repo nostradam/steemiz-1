@@ -13,13 +13,13 @@ import HeaderMenuItems from './HeaderMenuItem';
 const HeaderMenu = ({ me, logout, closeMenu }) => {
   return (
     <Menu>
-      <HeaderMenuItems to="#" label="Notifications" icon={IconNotification} onClick={closeMenu} />
+      {/*<HeaderMenuItems to="#" label="Notifications" icon={IconNotification} onClick={closeMenu} />*/}
       <HeaderMenuItems to={`/@${me}`} label="My Profile" icon={IconAccountCircle} onClick={closeMenu} />
-      <HeaderMenuItems to="#" label="Transactions" icon={IconMail} onClick={closeMenu} />
+      {/*<HeaderMenuItems to="#" label="Transactions" icon={IconMail} onClick={closeMenu} />*/}
       <Divider />
-      <HeaderMenuItems to="#" label="Settings" icon={IconSettings} onClick={closeMenu} />
+      {/*<HeaderMenuItems to="#" label="Settings" icon={IconSettings} onClick={closeMenu} />
       <HeaderMenuItems to="#" label="Support" icon={IconQuestion} onClick={closeMenu} />
-      <Divider />
+      <Divider />*/}
       <HeaderMenuItems to="#" onClick={() => { logout(); closeMenu(); }} label="Sign Out" icon={IconPower} />
     </Menu>
   )

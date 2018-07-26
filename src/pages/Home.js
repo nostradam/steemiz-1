@@ -1,8 +1,8 @@
 import React from 'react';
 import PostList from 'features/Post/PostList';
 
-export default function Home(props) {
+export default function Home() {
   return (
-    <PostList category="trending" subCategory="all" query={{ limit: 10 }} />
+    <PostList category="trending" subCategory="nulscommunity" query={{ limit: 10, tag: 'nulscommunity' }} />
   );
 }

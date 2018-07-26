@@ -51,9 +51,6 @@ function UserHeader(props) {
               <p>Following</p>
             </div>
             <div className="statistic statistic--buttons">
-              <button className="statistic--buttons__message">
-                <IconSms color="#ffffff" />
-              </button>
               <FollowButton accountName={accountName} />
             </div>
           </div>

@@ -104,7 +104,16 @@ function* getPostsBy({ category, query }) {
     }
     const formattedPosts = posts.map(post => format(post));
 
-    yield put(getPostsBySuccess(category, tag, formattedPosts, statePosts));
+    // LOOK FOR NULSCOMMUNITY TAG
+    const nulsPosts = [];
+    formattedPosts.forEach(post => {
+      const isNulsCommunity = post.json_metadata.tags.indexOf('nulscommunity');
+      if (isNulsCommunity !== -1) {
+        nulsPosts.push(post);
+      }
+    });
+
+    yield put(getPostsBySuccess(category, tag, nulsPosts, statePosts));
   } catch(e) {
     yield put(getPostsByFailure(e.message));
   }

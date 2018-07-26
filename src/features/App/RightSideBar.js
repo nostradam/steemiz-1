@@ -86,7 +86,7 @@ class RightSideBar extends Component {
             <UserSearch />
           </Tab>
         </CustomTabs>
-        <CustomTabs className="tab">
+        {/*<CustomTabs className="tab">
           <Tab
             label="Followers"
             buttonStyle={{ color: tabs2 === 'followers' ? COLOR_HOVER : COLOR_INACTIVE }}
@@ -105,7 +105,7 @@ class RightSideBar extends Component {
               {me && <FollowingsList accountName={me} />}
             </div>
           </Tab>
-        </CustomTabs>
+        </CustomTabs>*/}
         <button className="btn_toggle_sidebar" onClick={this.props.toggleSidebar}>
           {isSidebarOpen ? <IconRight color={COLOR_INACTIVE} hoverColor={COLOR_HOVER} /> : <IconLeft color={COLOR_INACTIVE} hoverColor={COLOR_HOVER} />}
         </button>

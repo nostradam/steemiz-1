@@ -22,7 +22,7 @@ class PostRelated extends Component {
     const { postRelatedFromPost } = this.props;
     return (
       <div>
-        {postRelatedFromPost && (
+        {postRelatedFromPost && postRelatedFromPost.length > 0 && (
           <div className="card-list">
             <h3>You may like</h3>
             <GridList style={{ flexWrap: 'nowrap', overflowX: 'auto' }} cols={2.2} cellHeight="auto">

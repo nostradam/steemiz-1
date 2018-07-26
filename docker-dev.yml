@@ -1,0 +1,17 @@
+version: '3.5'
+
+services:
+  nulscommunity:
+    container_name: nulscommunity
+    build:
+      context: .
+      dockerfile: .docker/development.dockerfile
+    volumes:
+      - ./src:/var/www/nulscommunity/src
+      - ./public:/var/www/nulscommunity/public
+    ports:
+      - ${PORT}:${PORT}
+    expose:
+      - ${PORT}
+    environment:
+      - NODE_ENV=development

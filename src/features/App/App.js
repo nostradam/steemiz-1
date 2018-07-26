@@ -30,12 +30,12 @@ class App extends Component {
         <div id="app_container">
           <Helmet>
             <meta charSet="utf-8" />
-            <title>Steemiz</title>
+            <title>Nulscommunity</title>
           </Helmet>
           <Header />
           <LeftSideBar />
-          <RightSideBar />
-          <div id="app_content" className={isSidebarOpen ? 'sidebar_open' : ''}>
+          {/*<RightSideBar />*/}
+          <div id="app_content">
             <div className="content__inner">
               <Routes />
             </div>

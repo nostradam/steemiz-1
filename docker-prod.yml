@@ -1,11 +1,11 @@
 version: '3.5'
 
 services:
-  steemiz:
-    container_name: steemiz
+  nulscommunity:
+    container_name: nulscommunity
     build:
       context: .
-      dockerfile: .docker/steemiz.dockerfile
+      dockerfile: .docker/production.dockerfile
     ports:
       - ${PORT}:${EXPOSED_PORT}
     expose:

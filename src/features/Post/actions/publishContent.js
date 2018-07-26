@@ -73,7 +73,7 @@ function* publishContent({ content }) {
     const parentPermlink = tags.length ? tags[0] : 'general';
     const permlink = yield createPermlink(title, author, parentPermlink, tags[0]);
     const metadata = {
-      app: 'steemiz',
+      app: 'nuls',
     };
 
     // LISTING IMAGES AND LINKS

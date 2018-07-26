@@ -20,7 +20,7 @@ import steem from 'steem';
 steem.api.setOptions({ url: process.env.REACT_APP_STEEM_API_URL });
 
 steemconnect.init({
-  app: 'steemiz.app',
+  app: process.env.REACT_APP_STEEMCONNECT_APP_NAME,
   callbackURL: process.env.REACT_APP_STEEMCONNECT_REDIRECT_URL,
   accessToken: 'access_token'
 });

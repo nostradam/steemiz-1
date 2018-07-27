@@ -1,4 +1,4 @@
-import { put, select, takeEvery } from 'redux-saga/effects';
+import { put, call, select, takeEvery } from 'redux-saga/effects';
 import steem from 'steem';
 import update from 'immutability-helper';
 import { selectHistoryTransferList } from '../selectors';
@@ -92,7 +92,9 @@ function* getTransferHistory({ accountName }) {
       limit = from;
       yield put(getTransferHistoryEnd(accountName));
     }
-    const state = yield steem.api.getAccountHistory(accountName, from, limit);
+    const state = yield call(() => new Promise(resolve => {
+      return steem.api.getAccountHistory(accountName, from, limit, (err, result) => resolve(result));
+    }));
     const history = state.reverse().map(transfer => ({
       type: transfer[1].op[0],
       timestamp: transfer[1].timestamp,

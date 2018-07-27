@@ -7,7 +7,6 @@ import SmallIconButton from 'components/SmallIconButton';
 import CircularProgress from 'components/CircularProgress';
 import { resteemBegin } from './actions/resteem';
 import { selectPostByPermlink } from './selectors';
-import './ResteemButton.css';
 
 function ResteemButton(props) {
   const { post } = props;

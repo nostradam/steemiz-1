@@ -76,7 +76,7 @@ class Header extends Component {
     const { me, myAccount, currentTag, currentCategory } = this.props;
     const { filter, dropdownMenu, collapseOpen } = this.state;
     return (
-      <header className="header clearfix">
+      <header className="header">
         <div className="header__group header__group--search float_left">
           <Link to="/" id="logo">
             <img src={logo} alt="logo" />

@@ -93,7 +93,9 @@ function* getFollowers(props) {
       limit = limit + 1;
     }
 
-    let followers = yield call(() => new Promise(resolve => resolve(steem.api.getFollowers(accountName, startFollower, 'blog', limit))));
+    let followers = yield call(() => new Promise(resolve => {
+      return steem.api.getFollowers(accountName, startFollower, 'blog', limit, (err, results) => resolve(results));
+    }));
     if (followers.length < limit) {
       yield put(getFollowersEnd(accountName));
       endList = true;
@@ -114,8 +116,8 @@ function* getFollowers(props) {
         .filter(accountName => !arrayAccounts.includes(accountName));
       if (accountNames.length > 0) {
         yield put(getAccountsBegin(accountNames));
+        yield take(GET_ACCOUNTS_SUCCESS);
       }
-      yield take(GET_ACCOUNTS_SUCCESS);
     }
     yield put(getFollowersSuccess(accountName, followers));
 

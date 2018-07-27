@@ -18,4 +18,5 @@ RUN yarn build
 # production environment
 FROM nginx:1.13.9-alpine
 COPY --from=builder /var/www/nulscommunity/build /usr/share/nginx/html
+COPY .docker/config/nginx.conf /etc/nginx/conf.d/default.conf
 CMD ["nginx", "-g", "daemon off;"]

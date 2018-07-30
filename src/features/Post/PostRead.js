@@ -118,7 +118,6 @@ class PostRead extends Component {
               </article>
             </div>
             <div className="PostDetail__large">
-              <PostRelated author={post.author} permlink={post.permlink} />
               {post.json_metadata.tags ? <PostTags post={post} /> : <div />}
               <PostFooter post={post} />
             </div>

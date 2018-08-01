@@ -6,6 +6,7 @@ import isEmpty from 'lodash/isEmpty';
 import { Link } from 'react-router-dom';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Helmet } from 'react-helmet';
+import styled from 'styled-components';
 
 import Body from 'components/Body';
 import AvatarSteemit from 'components/AvatarSteemit';
@@ -24,7 +25,49 @@ import { selectCurrentComments, selectCurrentPost } from './selectors';
 import { getOnePostBegin, setCurrentPostId } from './actions/getOnePost';
 import PostTags from './components/PostTags';
 import PostFooter from './components/PostFooter';
-import './PostRead.css';
+
+const Post = styled.div`
+  background: #ffffff;
+  border-radius: 2px;
+  padding: 2rem 1.5rem;
+`;
+const Content = styled.div`
+  max-width: 70rem;
+  margin: 0 auto;
+`;
+const ContentLarge = styled.div`
+  max-width: 80rem;
+  margin: 2rem auto;
+  padding-top: 3rem;
+`;
+const Article = styled.article`
+  line-height: 1.58;
+  letter-spacing: -.003em;
+`;
+const StyledBody = styled.div`
+  & img {
+    max-width: 100%;
+  }
+`;
+const Title = styled.h1`
+  color: #333;
+`;
+const BlockAuthor = styled.div`
+  padding: 1rem 0;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  
+  & > * {
+    margin-right: .3rem;
+  }
+`;
+const SignUp = styled.div`
+  text-align: center;
+  padding: 1rem 0 2.2rem;
+  border-top: 1px solid #d5d5d5;
+  border-bottom: 1px solid #d5d5d5;
+`;
 
 class PostRead extends Component {
   static defaultProps = {
@@ -95,34 +138,32 @@ class PostRead extends Component {
       listCommentsDisplayed = listComments.slice(0, nbCommentsDisplayed);
     }
     return (
-      <div className="single_post_container clearfix">
+      <div>
         {!isEmpty(post) && (
-          <div className="PostDetail">
+          <Post>
             <Helmet>
               <title>{post.title}</title>
             </Helmet>
-            <div className="PostDetail__content">
-              <article className="article">
-                <div className="article__post">
-                  <h1>{post.title}</h1>
-                  <div className="article__post__author">
-                    <AvatarSteemit name={post.author} />
-                    <Author name={post.author} reputation={post.author_reputation} />
-                    <span>in</span>
-                    <Link className="article__post__author__link" to="#">{post.category}</Link>
-                  </div>
-                  <div className="article__content">
-                    <Body post={post} jsonMetadata={post.json_metadata} />
-                  </div>
-                </div>
-              </article>
-            </div>
-            <div className="PostDetail__large">
+            <Content>
+              <Article>
+                <Title>{post.title}</Title>
+                <BlockAuthor>
+                  <AvatarSteemit name={post.author} />
+                  <Author name={post.author} reputation={post.author_reputation} />
+                  <span>in</span>
+                  <Link to={`/trending/${post.category}`}>{post.category}</Link>
+                </BlockAuthor>
+                <StyledBody>
+                  <Body post={post} jsonMetadata={post.json_metadata} />
+                </StyledBody>
+              </Article>
+            </Content>
+            <ContentLarge>
               {post.json_metadata.tags ? <PostTags post={post} /> : <div />}
               <PostFooter post={post} />
-            </div>
+            </ContentLarge>
             {!isConnected && (
-              <div className="PostDetail__signup">
+              <SignUp>
                 <p>Authors get paid when people like you upvote their post.</p>
                 <p>Join our amazing community to comment and reward others.</p>
                 <Link to="/signup">
@@ -134,9 +175,9 @@ class PostRead extends Component {
                   >
                   </RaisedButton>
                 </Link>
-              </div>
+              </SignUp>
             )}
-            <div className={`PostDetail__large ${isConnected ? 'border_top' : ''}`}>
+            <ContentLarge className={isConnected ? 'border_top' : ''}>
               <InfiniteList
                 list={listCommentsDisplayed}
                 hasMore={listComments && listComments.length > nbCommentsDisplayed}
@@ -150,8 +191,8 @@ class PostRead extends Component {
                     commentsChild={commentsChild}
                   />}
               />
-            </div>
-          </div>
+            </ContentLarge>
+          </Post>
         )}
       </div>
     );

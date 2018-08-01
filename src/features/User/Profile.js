@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom';
 import isEmpty from 'lodash/isEmpty';
 import { Helmet } from 'react-helmet';
+import styled from 'styled-components';
 
 import asyncComponent from 'asyncComponent';
 import UserHeader from './components/UserHeader';
@@ -21,6 +22,12 @@ const ProfileFollowings = asyncComponent(() => import('./ProfileFollowings'));
 const ProfileRewards = asyncComponent(() => import('./ProfileRewards'));
 const ProfileWallet = asyncComponent(() => import('./ProfileWallet'));
 
+const Container = styled.div`
+  padding: 0.71rem 1.42rem 1.5rem 0rem;
+`;
+const Content = styled.div`
+  overflow: hidden;
+`;
 
 class Profile extends Component {
   static propTypes = {
@@ -63,21 +70,21 @@ class Profile extends Component {
     const { account, match } = this.props;
     const accountName = match.params.accountName;
     if (isEmpty(account)) {
-      return <div></div>;
+      return <div/>;
     }
     if (match.isExact) {
       return <Redirect to={`/@${accountName}/blog`} />;
     }
     return (
-      <div className="profile_container">
+      <Container>
         <UserHeader account={account} />
         <Helmet
           titleTemplate={`%s | @${accountName}`}
           defaultTitle={`@${accountName}`}
         />
-        <div className="content">
+        <Content>
           <UserMenu accountName={accountName} />
-          <div className="content__details">
+          <div>
             <Route path="/@:accountName/blog" exact component={ProfileBlog} />
             <Route path="/@:accountName/comments" exact component={ProfileComments} />
             <Route path="/@:accountName/replies" exact component={ProfileReplies} />
@@ -87,8 +94,8 @@ class Profile extends Component {
             <Route path="/@:accountName/rewards" component={ProfileRewards} />
             <Route path="/@:accountName/wallet" component={ProfileWallet} />
           </div>
-        </div>
-      </div>
+        </Content>
+      </Container>
     );
   }
 }

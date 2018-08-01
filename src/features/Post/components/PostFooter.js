@@ -6,6 +6,7 @@ import IconFb from 'react-icons/lib/fa/facebook-square';
 import IconTwitter from 'react-icons/lib/fa/twitter-square';
 import IconLinked from 'react-icons/lib/fa/linkedin-square';
 import IconComments from 'react-icons/lib/fa/comments';
+import styled from 'styled-components';
 
 import ResteemButton from '../ResteemButton';
 import ContentPayoutAndVotes from 'components/ContentPayoutAndVotes';
@@ -16,6 +17,51 @@ import { COLOR, SIZE_SMALL } from 'styles/icons';
 import SmallFlatButton from 'components/SmallFlatButton';
 import SmallIconButton from 'components/SmallIconButton';
 import ReplyButton from 'components/ReplyButton';
+
+const Footer = styled.footer`
+  padding: 3rem 0 1rem 0;
+`;
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+  @media screen and (max-width: 930px) {
+    flex-direction: column;
+  }
+`;
+const TimeAuthor = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 6px 15px 0 0;
+  
+  & > * {
+    margin-right: 4px;
+  }
+`;
+const Divider = styled.div`
+  display: flex;
+  align-items: center;
+  
+  & > div {
+    display: flex;
+    padding: 0 10px;
+    border-left: 1px solid #8a8a8a;
+  }
+  
+  & > div:first-child {
+    border-left: 0;
+  }
+  
+  @media screen and (max-width: 930px) {
+    margin-top: 1rem;
+  }
+`;
+const Reply = styled.div`
+  border: 1px solid #efefef;
+  padding: 10px;
+  margin: 40px 0;
+`;
 
 export default class PostFooter extends PureComponent {
   static propTypes = {
@@ -42,26 +88,24 @@ export default class PostFooter extends PureComponent {
     const { post } = this.props;
     const { showReplyForm } = this.state;
     return (
-      <div className="article__footer">
-        <div className="article__footer__details">
-          <div className="article__footer__left">
-            <div className="time_author">
+      <Footer>
+        <Container>
+          <Divider>
+            <TimeAuthor>
               <IconWatch color={COLOR} style={{ width: SIZE_SMALL }} />
-              <span className="timestamp">
               <FormattedRelative value={`${post.created}Z`} />
-            </span>
               <span>by</span>
               <Author name={post.author} reputation={post.author_reputation} />
-            </div>
+            </TimeAuthor>
             <ContentPayoutAndVotes type="post" content={post} />
-          </div>
+          </Divider>
 
-          <div className="article__footer__details__right">
+          <Divider>
             <ResteemButton author={post.author} permlink={post.permlink} />
             <div>
               <ReplyButton onClick={this.switchReplyForm} />
             </div>
-            <div className="responses">
+            <div>
               <SmallFlatButton
                 label={displayContentNbComments(post)}
                 icon={IconComments}
@@ -72,14 +116,14 @@ export default class PostFooter extends PureComponent {
               <SmallIconButton icon={IconTwitter} tooltip="Share on Twitter" />
               <SmallIconButton icon={IconLinked} tooltip="Share on Linkedin" />
             </div>
-          </div>
-        </div>
+          </Divider>
+        </Container>
         {showReplyForm && (
-          <div className="article__reply">
+          <Reply>
             <CommentReplyForm content={post} closeForm={this.closeReplyForm} />
-          </div>
+          </Reply>
         )}
-      </div>
+      </Footer>
     );
   }
 }

@@ -1,8 +1,0 @@
-.notification {
-    display: flex;
-    align-items: center;
-}
-
-.notification svg {
-    margin-right: 10px;
-}

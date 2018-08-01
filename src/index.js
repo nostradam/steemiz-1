@@ -10,6 +10,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import { getToken } from 'utils/token';
 import './utils/helpers/immutabilityHelpers';
 import 'utils/date';
+import 'index.css';
 
 import store from './store';
 import App from './features/App/App';

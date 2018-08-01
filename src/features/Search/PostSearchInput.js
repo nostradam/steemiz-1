@@ -11,6 +11,35 @@ import { selectPostSearch, selectPostSuggestions } from './selectors';
 import CircularProgress from 'components/CircularProgress';
 import { postSearchInit } from 'features/Search/actions/postSearch';
 import { suggestBegin } from 'features/Search/actions/suggest';
+import styled from 'styled-components';
+
+const StyledSearch = styled.div`
+  margin: 0 0.4rem 0 1rem;
+  height: 2.9rem;
+  width: 20rem;
+  background: #ffffff;
+  border-radius: 2rem;
+  border: 1px solid #f0f0f2;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  
+  @media screen and (max-width: 480px) {
+    width: 14rem;
+  }
+`;
+const StyledSearchInput = styled(AutoComplete)`
+  font-family: 'nunito_sanssemibold';
+  color: #999999;
+  border: 0;
+  border-radius: 2rem;
+  margin-left: 6px;
+  width: 100%;
+  
+  &:focus {
+    outline: 0;
+  }
+`;
 
 class PostSearchInput extends Component {
   handleInput = term => {
@@ -29,18 +58,18 @@ class PostSearchInput extends Component {
   render() {
     const { isLoading } = this.props.postSearch;
     return (
-      <div className="search">
+      <StyledSearch>
         <IconSearch color={COLOR_INACTIVE} />
-        <AutoComplete
+        <StyledSearchInput
           style={{ width: 244 }}
           hintText="Search for posts"
-          className="search__input"
+          underlineShow={false}
           dataSource={this.props.postSuggestions}
           onUpdateInput={debounce(this.handleInput, 500)}
           onNewRequest={this.validate}
         />
         {isLoading && <CircularProgress size={20} thickness={3} />}
-      </div>
+      </StyledSearch>
     );
   }
 }

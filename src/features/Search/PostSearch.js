@@ -2,12 +2,25 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
 import { selectPostSearch } from './selectors';
 import { postSearchBegin } from 'features/Search/actions/postSearch';
 import InfiniteList from 'components/InfiniteList';
 import Result from './components/Result';
 import logo from './powered_by_asksteem.png';
 import './PostSearch.css';
+
+const ResultHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+const SearchTitle = styled.h2`
+  margin-bottom: .5rem;
+`;
+const Nb = styled.p`
+  margin: 0;
+`;
 
 class PostSearch extends Component {
   static propTypes = {
@@ -37,13 +50,13 @@ class PostSearch extends Component {
     const { match: { params : { q }}, postSearch } = this.props;
     return (
       <div>
-        <div className="search-result-header">
+        <ResultHeader>
           <div>
-            <h2>Search results for '{q}'</h2>
-            {typeof postSearch.hits !== 'undefined' && <p className="nb">{postSearch.hits} result(s)</p>}
+            <SearchTitle>Search results for '{q}'</SearchTitle>
+            {typeof postSearch.hits !== 'undefined' && <Nb>{postSearch.hits} result(s)</Nb>}
           </div>
           <a href={`https://www.asksteem.com/search?q=${q}`} target="_blank"><img src={logo} alt="AskSteem" /></a>
-        </div>
+        </ResultHeader>
         <InfiniteList
           list={postSearch.results}
           hasMore={postSearch.pages && postSearch.pages.has_next}

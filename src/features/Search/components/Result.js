@@ -9,6 +9,7 @@ import Author from 'components/Author';
 import CircularProgress from 'components/CircularProgress';
 import { COLOR, COLOR_HOVER, SIZE_SMALL } from 'styles/icons';
 import { formatAmount, } from 'utils/helpers/steemitHelpers';
+import { Post, PictureLink, Content, Title, Description, InfoBlock, Details, Price, SocialLink, Info, Block } from 'components/ContentItem';
 
 const Result = ({ content, placeholderImg }) => {
   const mainTag = content.tags[0];
@@ -17,48 +18,47 @@ const Result = ({ content, placeholderImg }) => {
   const total = (!isEmpty(content.total_payout_value) && content.total_payout_value.amount) ? content.total_payout_value.amount : 0;
   const payout = pending + total;
   return (
-    <div className="post_card">
+    <Post>
       {(content.main_img || placeholderImg) && (
-        <Link
+        <PictureLink
           to={contentLink}
-          className="post_card__block post_card__block--img"
           style={{background: `url(${content.main_img}) no-repeat #eee center center / cover`}}
         />
       )}
-      <div className={`post_card__block post_card__block--content full`}>
+      <Content>
         <Link to={contentLink} className="post_card__block">
-          <h3>{content.title}</h3>
+          <Title>{content.title}</Title>
         </Link>
         <Link to={contentLink} className="post_card__block">
-          <p>{content.summary}</p>
+          <Description>{content.summary}</Description>
         </Link>
-        <div className="post_card__block post_card__block--info">
-          <div className="details">
-            <div className="price">
+        <InfoBlock>
+          <Details>
+            <Price>
               {content.isUpdating && <CircularProgress size={20} thickness={3} style={{ marginRight: 10 }} />}
               {formatAmount(payout)}
-            </div>
-            <Link to="/" title="Favorites" className="social_area social_area--like">
+            </Price>
+            <SocialLink to="/" title="Favorites" className="social_area social_area--like">
               <IconFavorite color={COLOR} hoverColor={COLOR_HOVER} style={{ width: SIZE_SMALL, margin: '0 0.3rem' }} />
               <span>{content.net_votes}</span>
-            </Link>
-            <Link title="Responses" to={contentLink} className="social_area social_area--comment">
+            </SocialLink>
+            <SocialLink title="Responses" to={contentLink} className="social_area social_area--comment">
               <IconSms color={COLOR} hoverColor={COLOR_HOVER} style={{ width: SIZE_SMALL, margin: '0 0.3rem' }} />
               <span>{content.children}</span>
-            </Link>
-          </div>
-          <div className="info">
-            <div className="author">
+            </SocialLink>
+          </Details>
+          <Info>
+            <Block>
               <span>by </span>
               <Author name={content.author} />
-            </div>
-            <div className="datetime">
+            </Block>
+            <Block>
               <FormattedRelative value={`${content.created}Z`} /> in <Link to={`/trending/${mainTag}`}>{mainTag}</Link>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+            </Block>
+          </Info>
+        </InfoBlock>
+      </Content>
+    </Post>
   );
 };
 

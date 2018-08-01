@@ -9,7 +9,16 @@ import IconWarning from 'material-ui/svg-icons/alert/warning';
 import { lightGreen500, red500, yellow500 } from 'material-ui/styles/colors';
 import { selectNotificationState } from './selectors';
 import { actionLaunchBegin, close } from './actions/notification';
-import './notification.css';
+import styled from 'styled-components';
+
+const DivNotification = styled.div`
+  display: flex;
+  align-items: center;
+  
+  & svg {
+    margin-right: 10px;
+  }
+`;
 
 function Notification(props) {
   const { close, notificationState, actionLaunch } = props;
@@ -26,11 +35,11 @@ function Notification(props) {
   return (
     <Snackbar
       open={isOpen}
-      message={<div className="notification">{statusIcon}<span>{message}</span></div>}
+      message={<DivNotification>{statusIcon}<span>{message}</span></DivNotification>}
       bodyStyle={{ padding: '0 20px 0 10px' }}
       action={actionName}
       autoHideDuration={4000}
-      onActionTouchTap={() => actionLaunch(actionFunction)}
+      onActionClick={() => actionLaunch(actionFunction)}
       onRequestClose={close}
     />
   );
@@ -48,7 +57,7 @@ Notification.propTypes = {
   actionLaunch: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state, props) => createStructuredSelector({
+const mapStateToProps = () => createStructuredSelector({
   notificationState: selectNotificationState(),
 });
 

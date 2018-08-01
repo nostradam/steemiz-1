@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { FormattedRelative } from 'react-intl';
+import styled from 'styled-components';
 import Body from 'components/Body';
 import { sortCommentsFromSteem } from 'utils/helpers/stateHelpers';
 import ContentPayoutAndVotes from 'components/ContentPayoutAndVotes';
@@ -8,6 +9,56 @@ import AvatarSteemit from 'components/AvatarSteemit';
 import Author from 'components/Author';
 import ReplyButton from 'components/ReplyButton';
 import CommentReplyForm from './CommentReplyForm';
+
+const Container = styled.div`
+  padding: 0.5rem 0;
+`;
+export const Item = styled.div`
+  display: flex;
+  padding-bottom: 1rem;
+`;
+export const Detail = styled.div`
+  width: 100%;
+  padding: 0.2rem 1rem;
+`;
+const Head = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 0 0 10px;
+  
+  & > * {
+    margin-right: 0.3rem;
+  }
+`;
+const StyledBody = styled(Body)`
+  & p {
+    margin: 0 0 5px;
+    line-height: 1.6rem;
+  }
+  
+  & h1, & h2, & h3, & h4, & h5, & h6 {
+    margin: 0 0 8px;
+  } 
+  
+  & img {
+    max-width: 100%;
+  }
+`;
+const Footer = styled.div`
+  display: flex;
+  
+  & > * {
+    margin-right: 8px;
+  }
+  
+  @media screen and (max-width: 480px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+`;
+const Child = styled.div`
+  padding-left: 4rem;
+`;
 
 class CommentItem extends PureComponent {
   constructor() {
@@ -30,37 +81,33 @@ class CommentItem extends PureComponent {
     const { comment, commentsChild, commentsData, sortOrder } = this.props;
     const { showReplyForm } = this.state;
     return (
-      <div className="CommentComponent">
-        <div className="CommentItem">
-          <div className="CommentComponent__avatar">
+      <Container>
+        <Item>
+          <div>
             <Link to={`/@${comment.author}`}>
               <AvatarSteemit name={comment.author} />
             </Link>
           </div>
-          <div className="CommentComponent__detail">
-            <div className="CommentComponent__head">
+          <Detail>
+            <Head>
               <Author name={comment.author}
                       reputation={comment.author_reputation} />
-              <span className="timestamp">
+              <span>
                 <FormattedRelative value={`${comment.created}Z`} />
               </span>
-            </div>
-            <div className="CommentComponent__body">
-              <div className="CommentComponent__content">
-                <Body post={comment} />
-              </div>
-            </div>
-            <div className="CommentComponent__footer">
+            </Head>
+            <StyledBody post={comment} />
+            <Footer>
               <ContentPayoutAndVotes type="comment" content={comment} />
               <ReplyButton onClick={this.switchReplyForm} />
-            </div>
-          </div>
-        </div>
-        <div className="Comment__child">
+            </Footer>
+          </Detail>
+        </Item>
+        <Child>
           {showReplyForm && (
-            <div className="CommentComponent">
+            <Container>
               <CommentReplyForm content={comment} closeForm={this.closeReplyForm} />
-            </div>
+            </Container>
           )}
           {commentsChild[comment.id] && sortCommentsFromSteem(
             commentsChild[comment.id],
@@ -73,8 +120,8 @@ class CommentItem extends PureComponent {
               comment={commentsData[commentId]}
             />
           )}
-        </div>
-      </div>
+        </Child>
+      </Container>
     );
   }
 }

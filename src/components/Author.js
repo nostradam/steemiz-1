@@ -1,15 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+
+const StyledAuthor = styled.span`
+  color: #8a8a8a;
+`;
+const StyledName = styled.span`
+  margin-right: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+const StyledAuthorReputation = styled.span`
+  color: grey;
+  font-size: .60rem;
+  background-color: #efefef;
+  border-radius: 50px;
+  font-weight: bold;
+  width: 20px;
+  text-align: center;
+  padding: 4px;
+  margin: 1px 5px 0;
+`;
 
 const Author = ({ name, reputation }) => {
   return (
-    <div className="Author">
+    <StyledAuthor>
       <Link to={`/@${name}`}>
-        <span className="Author__name">{name}</span>
+        <StyledName>{name}</StyledName>
       </Link>
-      {reputation && <span className="Author__reputation" title="Reputation">{reputation}</span>}
-    </div>
+      {reputation && <StyledAuthorReputation title="Reputation">{reputation}</StyledAuthorReputation>}
+    </StyledAuthor>
   )
 };
 

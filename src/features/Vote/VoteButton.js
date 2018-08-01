@@ -10,11 +10,38 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Slider from 'material-ui/Slider';
 import IconForward from 'material-ui/svg-icons/content/forward';
 import { grey400, white } from 'material-ui/styles/colors';
+import styled from 'styled-components';
 
 import { selectIsConnected, selectMyAccount } from 'features/User/selectors';
 import { selectAppProps, selectAppRate, selectAppRewardFund } from 'features/App/selectors';
 import { voteBegin } from './actions/vote';
 import { hasVoted } from 'utils/helpers/steemitHelpers';
+
+const StyledVote = styled.div`
+  border-radius: 100%;
+  overflow: hidden;
+  margin-right: .5rem;
+  
+  &:hover, &.active {
+    background: linear-gradient(135deg, #53aed1 0%, #68bc86 100%);
+  }
+`;
+const StyledCardBox = styled.div`
+  position: absolute;
+  top: 100%;
+  width: 300px;
+  padding: 20px;
+  background: white;
+  box-shadow: 0 0 8px lightgrey;
+  z-index: 2;
+`;
+const StyledSlider = styled.div`
+  display: flex;
+  align-items: center;
+`;
+const StyledWeight = styled.div`
+  margin-left: 20px;
+`;
 
 class VoteButton extends Component {
   static propTypes = {
@@ -92,7 +119,7 @@ class VoteButton extends Component {
     return (
       <div>
         {isConnected && (
-          <div className={`Vote ${contentUpvoted ? 'active' : ''}`} onMouseEnter={this.overIn}
+          <StyledVote className={`Vote ${contentUpvoted ? 'active' : ''}`} onMouseEnter={this.overIn}
                onMouseLeave={this.overOut}>
             <IconButton
               onClick={!contentUpvoted ? this.openSlider : () => this.vote(0)}
@@ -114,8 +141,8 @@ class VoteButton extends Component {
               />
             </IconButton>
             {sliderIsOpen && (
-              <div className="CardBox">
-                <div className="Slider">
+              <StyledCardBox>
+                <StyledSlider>
                   <Slider
                     style={{ width: '100%' }}
                     sliderStyle={{ marginBottom: 24 }}
@@ -125,20 +152,20 @@ class VoteButton extends Component {
                     value={voteWeight}
                     onChange={this.handleVoteWeight}
                   />
-                  <div className="Weight">{voteWeight}%
+                  <StyledWeight>{voteWeight}%
                     ({numeral(this.votingValueCalculator(voteWeight)).format('$0,0.00')})
-                  </div>
-                </div>
+                  </StyledWeight>
+                </StyledSlider>
                 <RaisedButton
                   label="Vote"
                   primary
-                  onTouchTap={() => this.vote(voteWeight * 100)}
+                  onClick={() => this.vote(voteWeight * 100)}
                   disabled={voteWeight === 0}
                 />
-                <FlatButton label="Close" primary onTouchTap={this.closeSlider} />
-              </div>
+                <FlatButton label="Close" primary onClick={this.closeSlider} />
+              </StyledCardBox>
             )}
-          </div>
+          </StyledVote>
         )}
       </div>
     )

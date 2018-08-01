@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Popover from 'material-ui/Popover';
+import styled from 'styled-components';
 
 import { getUpvotes, sortVotes } from 'utils/helpers/voteHelpers';
 import CircularProgress from 'components/CircularProgress';
@@ -10,6 +11,39 @@ import Payout from 'features/Comment/Payout';
 import VoteButton from 'features/Vote/VoteButton';
 import VotePayout from 'features/Vote/VotePayout';
 import { calculateContentPayout, formatAmount } from 'utils/helpers/steemitHelpers';
+
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+`;
+const VotingButton = styled.div`
+  cursor: pointer;
+  position: relative;
+`;
+const Voting = styled.div`
+  font-weight: 600;
+  margin-right: 8px;
+  display: flex;
+  align-items: center;
+  position: relative;
+`;
+const StyledPopover = styled(Popover)`
+  padding: 1rem;
+`;
+const VoteDetails = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+const Weight = styled.span`
+  color: #d3d3d6;
+  margin-left: .2rem;
+`;
+const VotersList = styled.div`
+  font-weight: 600;
+  padding-left: 7px;
+  border-left: 1px solid #8a8a8a;
+  position: relative;
+`;
 
 const NB_SHOW_VOTES = 15;
 
@@ -74,17 +108,17 @@ export default class ContentPayoutAndVotes extends PureComponent {
           .slice(0, NB_SHOW_VOTES);
 
       lastVotesTooltipMsg = lastVotes.map(vote => (
-        <div className="Vote__details" key={vote.voter}>
+        <VoteDetails key={vote.voter}>
           <div>
             <Link to={`/@${vote.voter}`}>
               {vote.voter}
             </Link>
-            <span className="weight">({vote.percent / 100}%)</span>
+            <Weight>({vote.percent / 100}%)</Weight>
           </div>
           <strong>
             <VotePayout vote={vote} totalRshares={totalRshares} totalPayout={totalPayout} />
           </strong>
-        </div>
+        </VoteDetails>
       ));
       if (content.net_votes > NB_SHOW_VOTES) lastVotesTooltipMsg.push(
         <div key="...">
@@ -94,11 +128,11 @@ export default class ContentPayoutAndVotes extends PureComponent {
     }
 
     return (
-      <div className="Voting">
-        <div className="Voting__button">
+      <Container>
+        <VotingButton>
           <VoteButton content={content} type={type} />
-        </div>
-        <div className="Voting__money">
+        </VotingButton>
+        <Voting>
           {content.isUpdating && <CircularProgress size={20} thickness={3} style={{ marginRight: 10 }} />}
           {payout === 0 ? (
             <SmallFlatButton label={formatAmount(payout)} />
@@ -106,8 +140,7 @@ export default class ContentPayoutAndVotes extends PureComponent {
             <SmallFlatButton onClick={this.openMoneyCard} label={formatAmount(payout)} />
           )}
           {payout !== 0 && isOpenMoneyCard && (
-            <Popover
-              className="card"
+            <StyledPopover
               open={isOpenMoneyCard}
               anchorEl={this.state.moneyAnchor}
               anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
@@ -116,18 +149,17 @@ export default class ContentPayoutAndVotes extends PureComponent {
               style={{ color: 'inherit' }}
             >
               <Payout content={content} />
-            </Popover>
+            </StyledPopover>
           )}
-        </div>
-        <div className="Voting__voters_list">
+        </Voting>
+        <VotersList>
           {content.net_votes === 0 ? (
             <SmallFlatButton label={`${content.net_votes} votes`} />
           ) : (
             <SmallFlatButton onClick={this.openVoteCard} label={`${content.net_votes} votes`} />
           )}
           {content.net_votes !== 0 && isOpenVoteCard && (
-            <Popover
-              className="card"
+            <StyledPopover
               open={isOpenVoteCard}
               anchorEl={this.state.voteAnchor}
               anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
@@ -136,10 +168,10 @@ export default class ContentPayoutAndVotes extends PureComponent {
               style={{ color: 'inherit' }}
             >
               {lastVotesTooltipMsg}
-            </Popover>
+            </StyledPopover>
           )}
-        </div>
-      </div>
+        </VotersList>
+      </Container>
     )
   }
 }

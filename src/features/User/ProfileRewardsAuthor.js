@@ -9,16 +9,16 @@ import Reward from './components/Reward';
 import { selectHistoryTransfer, selectRewardsAuthor } from './selectors';
 import { getTransferHistoryBegin } from './actions/getTransferHistory';
 
+import { Title, Result } from 'features/User/ProfileRewardsCuration';
+
 function ProfileRewardsAuthor(props) {
   const { getTransferHistory, historyTransfer: { hasMore, isLoading }, rewardsAuthor } = props;
   return (
     <div>
-      <div className="tab__filter">
-        <h3 className="tab__filter__text">
-          Author Rewards History
-        </h3>
-      </div>
-      <div className="tab__result">
+      <Title>
+        Author Rewards History
+      </Title>
+      <Result>
         <InfiniteList
           list={rewardsAuthor}
           hasMore={hasMore}
@@ -29,7 +29,7 @@ function ProfileRewardsAuthor(props) {
             <Reward key={index} reward={reward} type="author" />
           )}
         />
-      </div>
+      </Result>
     </div>
   );
 }

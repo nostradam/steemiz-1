@@ -88,12 +88,12 @@ class PostCreate extends Component {
       <FlatButton
         label="Close"
         primary={true}
-        onTouchTap={this.toggleForm}
+        onClick={this.toggleForm}
       />,
       <RaisedButton
         label="Post"
         primary={true}
-        onTouchTap={this.handleCreatePost}
+        onClick={this.handleCreatePost}
         disabled={isPublishing}
       />,
     ];

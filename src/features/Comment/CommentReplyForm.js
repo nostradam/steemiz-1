@@ -8,6 +8,7 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 
 import AvatarSteemit from 'components/AvatarSteemit';
+import { Item, Detail } from './CommentItem';
 import { selectMe } from 'features/User/selectors';
 import { replyBegin } from './actions/reply';
 
@@ -38,11 +39,9 @@ class CommentReplyForm extends Component {
     const { closeForm, me } = this.props;
     const { body } = this.state;
     return (
-      <div className="CommentItem">
-        <div className="CommentComponent__avatar">
-          <AvatarSteemit name={me} />
-        </div>
-        <div className="CommentComponent__detail">
+      <Item>
+        <AvatarSteemit name={me} />
+        <Detail>
           <TextField
             name="comment-reply"
             value={body}
@@ -55,21 +54,21 @@ class CommentReplyForm extends Component {
             <RaisedButton
               label="Post"
               primary={true}
-              onTouchTap={this.reply}
+              onClick={this.reply}
             />
             <FlatButton
               label="Close"
               primary={true}
-              onTouchTap={closeForm}
+              onClick={closeForm}
             />
           </div>
-        </div>
-      </div>
+        </Detail>
+      </Item>
     );
   }
 }
 
-const mapStateToProps = (state, props) => createStructuredSelector({
+const mapStateToProps = () => createStructuredSelector({
   me: selectMe(),
 });
 

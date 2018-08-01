@@ -3,22 +3,34 @@ import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 import titleWrapper from 'titleWrapper';
+import styled from 'styled-components';
 
 import InfiniteList from 'components/InfiniteList';
 import Reward from './components/Reward';
 import { selectHistoryTransfer, selectRewardsCuration } from './selectors';
 import { getTransferHistoryBegin } from './actions/getTransferHistory';
 
+export const Title = styled.h3`
+  font-size: 1.3rem;
+  line-height: 2rem;
+  color: #a2a2a3;
+  padding-left: 1rem;
+  text-transform: capitalize;
+`;
+export const Result = styled.div`
+  list-style-type: none;
+  padding: 0;
+  border-top: 1px solid #e6e6e6;
+`;
+
 function ProfileRewardsCuration(props) {
   const { getTransferHistory, historyTransfer: { hasMore, isLoading }, rewardsCuration } = props;
   return (
     <div>
-      <div className="tab__filter">
-        <h3 className="tab__filter__text">
-          Curation Rewards History
-        </h3>
-      </div>
-      <div className="tab__result">
+      <Title>
+        Curation Rewards History
+      </Title>
+      <Result>
         <InfiniteList
           list={rewardsCuration}
           hasMore={hasMore}
@@ -29,7 +41,7 @@ function ProfileRewardsCuration(props) {
             <Reward key={index} reward={reward} type="curation" />
           )}
         />
-      </div>
+      </Result>
     </div>
   );
 }

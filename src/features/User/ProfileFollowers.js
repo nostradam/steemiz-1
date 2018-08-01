@@ -5,16 +5,18 @@ import { connect } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import { withRouter } from 'react-router-dom';
 import titleWrapper from 'titleWrapper';
+import styled from 'styled-components';
 
 import UserCard from './components/UserCard';
 import InfiniteList from 'components/InfiniteList';
 import { selectFollowersAccounts, selectFollowersFromUser } from './selectors';
 import { getFollowersBegin } from './actions/getFollowers';
 
+
 function ProfileFollowers(props) {
   const { getFollowers, followersAccounts, followersFromUser } = props;
   return (
-    <div className="usercard_container">
+    <div>
       {!isEmpty(followersFromUser) && (
         <InfiniteList
           list={followersAccounts}

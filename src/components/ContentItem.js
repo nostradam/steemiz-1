@@ -65,6 +65,7 @@ export const ResteemedBy = styled.div`
 export const InfoBlock = styled.div`
   display: flex;
   align-items: center;
+  margin-top: 1rem;
 `;
 export const Details = styled.div`
   display: flex;
@@ -89,6 +90,10 @@ export const SocialLink = styled(Link)`
   font-size: 0.8rem;
   display: flex;
   align-items: center;
+  
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 export const Block = styled.div`
   margin: .3rem 1rem;

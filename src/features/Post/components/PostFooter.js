@@ -57,6 +57,19 @@ const Divider = styled.div`
     margin-top: 1rem;
   }
 `;
+const FirstDivider = styled(Divider)`
+  @media screen and (max-width: 480px) {
+    flex-direction: column;
+    
+    & > div {
+      margin-bottom: 1rem;
+    }
+    
+    & > div:nth-child(2) {
+      border-left: 0;
+    }
+  }
+`;
 const Reply = styled.div`
   border: 1px solid #efefef;
   padding: 10px;
@@ -90,7 +103,7 @@ export default class PostFooter extends PureComponent {
     return (
       <Footer>
         <Container>
-          <Divider>
+          <FirstDivider>
             <TimeAuthor>
               <IconWatch color={COLOR} style={{ width: SIZE_SMALL }} />
               <FormattedRelative value={`${post.created}Z`} />
@@ -98,7 +111,7 @@ export default class PostFooter extends PureComponent {
               <Author name={post.author} reputation={post.author_reputation} />
             </TimeAuthor>
             <ContentPayoutAndVotes type="post" content={post} />
-          </Divider>
+          </FirstDivider>
 
           <Divider>
             <ResteemButton author={post.author} permlink={post.permlink} />

@@ -30,6 +30,7 @@ const Post = styled.div`
   background: #ffffff;
   border-radius: 2px;
   padding: 2rem 1.5rem;
+  font-size: 1.25rem;
 `;
 const Content = styled.div`
   max-width: 70rem;

@@ -58,6 +58,10 @@ const Footer = styled.div`
 `;
 const Child = styled.div`
   padding-left: 4rem;
+  
+  @media screen and (max-width: 480px) {
+    padding-left: 0;
+  }
 `;
 
 class CommentItem extends PureComponent {

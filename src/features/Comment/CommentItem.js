@@ -30,7 +30,7 @@ const Head = styled.div`
     margin-right: 0.3rem;
   }
 `;
-const StyledBody = styled(Body)`
+const StyledBody = styled.div`
   & p {
     margin: 0 0 5px;
     line-height: 1.6rem;
@@ -59,7 +59,7 @@ const Footer = styled.div`
 const Child = styled.div`
   padding-left: 4rem;
   
-  @media screen and (max-width: 480px) {
+  @media screen and (max-width: 768px) {
     padding-left: 0;
   }
 `;
@@ -100,7 +100,9 @@ class CommentItem extends PureComponent {
                 <FormattedRelative value={`${comment.created}Z`} />
               </span>
             </Head>
-            <StyledBody post={comment} />
+            <StyledBody>
+              <Body post={comment} />
+            </StyledBody>
             <Footer>
               <ContentPayoutAndVotes type="comment" content={comment} />
               <ReplyButton onClick={this.switchReplyForm} />
